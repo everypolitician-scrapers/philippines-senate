@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'pry'
 require 'scraped_page'
 require 'open-uri-cached-archive'
+require 'scraperwiki'
 
 class OpenURICachedStrategy
   def response(url)
@@ -32,7 +33,6 @@ class ScrapedPage
     attr_reader :noko, :url
   end
 end
-
 
 class MembersListPage < ScrapedPage
   field :term do
@@ -69,5 +69,5 @@ page = MembersListPage.new(url: url, strategy: strategy)
 
 page.members.each do |member|
   row = MemberRow.new(noko: member, url: url)
-  puts row.to_h
+  ScraperWiki.save_sqlite([:name], row.to_h)
 end
