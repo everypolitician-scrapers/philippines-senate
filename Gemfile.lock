@@ -1,0 +1,57 @@
+PATH
+  remote: ~/Projects/everypolitician/open-uri-cached-archive
+  specs:
+    open-uri-cached-archive (0.1.0)
+
+PATH
+  remote: ~/Projects/everypolitician/scraped_page
+  specs:
+    scraped_page (0.1.0)
+      field_serializer
+      nokogiri
+      scraped_page_archive (>= 0.5)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
+    coderay (1.1.1)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
+    field_serializer (0.2.0)
+    git (1.3.0)
+    hashdiff (0.3.0)
+    method_source (0.8.2)
+    mini_portile2 (2.1.0)
+    nokogiri (1.6.8.1)
+      mini_portile2 (~> 2.1.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    public_suffix (2.0.4)
+    safe_yaml (1.0.4)
+    scraped_page_archive (0.5.0)
+      git (~> 1.3.0)
+      vcr-archive (~> 0.3.0)
+    slop (3.6.0)
+    vcr (3.0.3)
+    vcr-archive (0.3.0)
+      vcr (~> 3.0.2)
+      webmock (~> 2.0.3)
+    webmock (2.0.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  open-uri-cached-archive!
+  pry
+  scraped_page!
+
+BUNDLED WITH
+   1.13.6
