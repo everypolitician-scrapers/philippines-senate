@@ -6,13 +6,6 @@ require 'scraped_page'
 require 'open-uri-cached-archive'
 require 'scraperwiki'
 
-class OpenURICachedStrategy
-  def response(url)
-    response = OpenUriCachedArchive.new('.cache').responses.find { |r| r.base_uri.to_s == url.to_s }
-    { status: response.status.first.to_i, body: response.read, headers: response.meta }
-  end
-end
-
 class String
   def tidy
     gsub(/[[:space:]]+/, ' ').strip
