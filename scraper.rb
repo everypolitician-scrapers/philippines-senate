@@ -62,7 +62,7 @@ class MemberRow < ScrapedPage::Fragment
   end
 end
 
-strategy = OpenURICachedStrategy.new
+strategy = ScrapedPage::Strategy::LiveRequestArchive.new
 
 url = 'http://www.senate.gov.ph/senators/sen17th.asp'
 page = MembersListPage.new(url: url, strategy: strategy)
