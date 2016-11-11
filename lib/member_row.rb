@@ -1,7 +1,7 @@
-require_relative 'scraped_page/fragment'
+require_relative 'scraped_page/section'
 require 'uri'
 
-class MemberRow < ScrapedPage::Fragment
+class MemberRow < ScrapedPage::Section
   field :image do
     URI.join(url, noko.parent.at_css('img')[:src]).to_s
   end
