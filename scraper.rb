@@ -28,7 +28,7 @@ end
 
 class MemberRow < Scraped
   field :image do
-    URI.join(url, noko.parent.at_css('img')[:src]).to_s
+    noko.parent.at_css('img')[:src]
   end
 
   field :name do
@@ -59,8 +59,28 @@ class ForceUTF8BodyEncoding < Scraped::Response::Decorator
   end
 end
 
+class AbsoluteUrlsForImages < Scraped::Response::Decorator
+  def body
+    doc = Nokogiri::HTML(super)
+    doc.css('img').each do |img|
+      img[:src] = URI.join(url, img[:src]).to_s
+    end
+    doc.to_s
+  end
+end
+
 url = 'http://www.senate.gov.ph/senators/sen17th.asp'
-response = Scraped::Request.new(url: url, strategies: [OpenURICachedStrategy]).response(decorators: [ForceUTF8BodyEncoding])
+
+response = Scraped::Request.new(
+  url: url,
+  strategies: [
+    OpenURICachedStrategy,
+    Scraped::Request::Strategy::LiveRequest
+  ]
+).response(
+  decorators: [ForceUTF8BodyEncoding, AbsoluteUrlsForImages]
+)
+
 page = MembersListPage.new(response: response)
 
 page.members.each do |member|
