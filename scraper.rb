@@ -53,8 +53,14 @@ class OpenURICachedStrategy < Scraped::Request::Strategy
   end
 end
 
+class ForceUTF8BodyEncoding < Scraped::Response::Decorator
+  def body
+    super.force_encoding('utf-8')
+  end
+end
+
 url = 'http://www.senate.gov.ph/senators/sen17th.asp'
-response = Scraped::Request.new(url: url, strategies: [OpenURICachedStrategy]).response
+response = Scraped::Request.new(url: url, strategies: [OpenURICachedStrategy]).response(decorators: [ForceUTF8BodyEncoding])
 page = MembersListPage.new(response: response)
 
 page.members.each do |member|
