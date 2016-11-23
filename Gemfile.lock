@@ -6,8 +6,8 @@ GIT
 
 GIT
   remote: https://github.com/everypolitician/scraped.git
-  revision: 35ba90c379eb23fef1bb1127a03db1bf4ef9ac75
-  branch: add-scraped_page-request-class
+  revision: af6a49a39eba5651f205f7a39f8bd62e6b9a3996
+  branch: add-support-for-fragments
   specs:
     scraped (0.1.0)
       field_serializer

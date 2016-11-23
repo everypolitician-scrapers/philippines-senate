@@ -2,12 +2,12 @@ require 'bundler/setup'
 # require 'open-uri/cached'
 # OpenURI::Cache.cache_path = '.cache'
 require 'pry'
-require 'scraped_page'
+require 'scraped'
 require 'open-uri-cached-archive'
 require 'scraperwiki'
 
-class OpenURICachedStrategy
-  def response(url)
+class OpenURICachedStrategy < Scraped::Request::Strategy
+  def response
     response = OpenUriCachedArchive.new('.cache').responses.find { |r| r.base_uri.to_s == url.to_s }
     { status: response.status.first.to_i, body: response.read, headers: response.meta }
   end
@@ -19,22 +19,7 @@ class String
   end
 end
 
-class ScrapedPage
-  class Fragment
-    include FieldSerializer
-
-    def initialize(noko:, url:)
-      @noko = noko
-      @url = url
-    end
-
-    private
-
-    attr_reader :noko, :url
-  end
-end
-
-class MembersListPage < ScrapedPage
+class MembersListPage < Scraped
   field :term do
     noko.css('#content .h1_bold').first.text.tidy
   end
@@ -48,7 +33,7 @@ class MembersListPage < ScrapedPage
   end
 end
 
-class MemberRow < ScrapedPage::Fragment
+class MemberRow < Scraped
   field :image do
     URI.join(url, noko.parent.at_css('img')[:src]).to_s
   end
@@ -62,12 +47,12 @@ class MemberRow < ScrapedPage::Fragment
   end
 end
 
-strategy = ScrapedPage::Strategy::LiveRequestArchive.new
-
 url = 'http://www.senate.gov.ph/senators/sen17th.asp'
-page = MembersListPage.new(url: url, strategy: strategy)
+response = Scraped::Request.new(url: url, strategies: [OpenURICachedStrategy]).response
+page = MembersListPage.new(response: response)
 
 page.members.each do |member|
-  row = MemberRow.new(noko: member, url: url)
+  row = MemberRow.new(noko: member, response: response)
+  puts row.to_h
   ScraperWiki.save_sqlite([:name], row.to_h)
 end
