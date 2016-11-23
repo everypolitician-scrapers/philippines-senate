@@ -6,19 +6,6 @@ require 'scraped'
 require 'open-uri-cached-archive'
 require 'scraperwiki'
 
-class OpenURICachedStrategy < Scraped::Request::Strategy
-  def response
-    response = OpenUriCachedArchive.new(cache_directory).responses.find { |r| r.base_uri.to_s == url.to_s }
-    { status: response.status.first.to_i, body: response.read, headers: response.meta }
-  end
-
-  private
-
-  def cache_directory
-    config[:cache_directory] || '.cache'
-  end
-end
-
 class String
   def tidy
     gsub(/[[:space:]]+/, ' ').strip
@@ -50,6 +37,19 @@ class MemberRow < Scraped
 
   field :post do
     noko.at_css('em') && noko.at_css('em').text.tidy
+  end
+end
+
+class OpenURICachedStrategy < Scraped::Request::Strategy
+  def response
+    response = OpenUriCachedArchive.new(cache_directory).responses.find { |r| r.base_uri.to_s == url.to_s }
+    { status: response.status.first.to_i, body: response.read, headers: response.meta }
+  end
+
+  private
+
+  def cache_directory
+    config[:cache_directory] || '.cache'
   end
 end
 
