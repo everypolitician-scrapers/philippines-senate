@@ -5,12 +5,14 @@ GIT
     open-uri-cached-archive (0.1.0)
 
 GIT
-  remote: https://github.com/everypolitician/scraped_page.git
-  revision: 6eb806c01e8b9f3e333575a639e40a68be60ae48
+  remote: https://github.com/everypolitician/scraped.git
+  revision: 35ba90c379eb23fef1bb1127a03db1bf4ef9ac75
+  branch: add-scraped_page-request-class
   specs:
-    scraped_page (0.1.0)
+    scraped (0.1.0)
       field_serializer
       nokogiri
+      require_all
       scraped_page_archive (>= 0.5)
 
 GIT
@@ -43,6 +45,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.4)
+    require_all (1.3.3)
     safe_yaml (1.0.4)
     scraped_page_archive (0.5.0)
       git (~> 1.3.0)
@@ -66,7 +69,7 @@ PLATFORMS
 DEPENDENCIES
   open-uri-cached-archive!
   pry
-  scraped_page!
+  scraped!
   scraperwiki!
 
 BUNDLED WITH
