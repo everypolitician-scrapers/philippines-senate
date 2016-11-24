@@ -20,7 +20,7 @@ response = Scraped::Request.new(
   url: url,
   strategies: [
     LiveRequestWithTimeoutStrategy,
-    OpenURICachedStrategy,
+    { strategy: OpenURICachedStrategy, cache_directory: 'cache' },
   ]
 ).response(
   decorators: [ForceUTF8BodyEncoding, AbsoluteUrlsForImages]
