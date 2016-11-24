@@ -7,3 +7,4 @@ gem 'scraped', github: 'everypolitician/scraped', branch: 'add-support-for-fragm
 gem 'open-uri-cached-archive', github: 'everypolitician/open-uri-cached-archive'
 gem 'pry'
 gem 'scraperwiki', github: 'openaustralia/scraperwiki-ruby', branch: 'morph_defaults'
+gem 'require_all'
