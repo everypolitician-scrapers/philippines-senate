@@ -1,4 +1,4 @@
-class MemberRow < Scraped
+class MemberRow < Scraped::HTML
   field :image do
     noko.parent.at_css('img')[:src]
   end

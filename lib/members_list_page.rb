@@ -1,4 +1,4 @@
-class MembersListPage < Scraped
+class MembersListPage < Scraped::HTML
   field :term do
     noko.css('#content .h1_bold').first.text.tidy
   end
