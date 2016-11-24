@@ -19,8 +19,8 @@ url = 'http://www.senate.gov.ph/senators/sen17th.asp'
 response = Scraped::Request.new(
   url: url,
   strategies: [
+    LiveRequestWithTimeoutStrategy,
     OpenURICachedStrategy,
-    Scraped::Request::Strategy::LiveRequest
   ]
 ).response(
   decorators: [ForceUTF8BodyEncoding, AbsoluteUrlsForImages]
